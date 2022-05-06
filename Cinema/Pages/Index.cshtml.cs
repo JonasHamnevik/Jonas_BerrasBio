@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cinema.Data;
+using Cinema.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly CinemaContext context;
+        public IndexModel (CinemaContext context) => this.context = context;
+        public List<Movie> Movies { get; set; } = new List<Movie>();
+        public List<Booking> Bookings { get; set; } = new List<Booking>();
+        public async Task OnGetAsync()
         {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-
+            Movies = await context.Movies.ToListAsync();
         }
     }
 }

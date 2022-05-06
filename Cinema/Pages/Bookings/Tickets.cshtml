@@ -1,0 +1,45 @@
+﻿@page "{id:int}"
+@model Cinema.Pages.Bookings.TicketsModel
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h1>Tickets</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Bookings.Name" class="control-label"></label>
+                <input asp-for="Bookings.Name" class="form-control" />
+                <span asp-validation-for="Bookings.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bookings.NumberOfSeats" class="control-label"></label>
+                <input asp-for="Bookings.NumberOfSeats" class="form-control" min=1 />
+                <span asp-validation-for="Bookings.NumberOfSeats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bookings.MovieId" class="control-label">Title</label>
+                <select asp-for="Bookings.MovieId" class="form-control" asp-items="ViewBag.MovieId" ></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Index">Back</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -7,9 +7,11 @@ namespace Cinema.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
+
+        public int NumberOfSeats { get; set; }
 
         public int MovieId { get; set; }
-        public virtual Movie Movie { get; set; }
+        public virtual Movie? Movie { get; set; }
     }
 }

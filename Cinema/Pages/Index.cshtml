@@ -3,8 +3,44 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <h1>Welcome to Berras!</h1>
+    <p>
+        Your one and only Basement-Cinema!
+    </p>
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Movie
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Seats
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seats)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger float-right" asp-page="/Bookings/Tickets" asp-route-id="@item.Id">Ticket</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
