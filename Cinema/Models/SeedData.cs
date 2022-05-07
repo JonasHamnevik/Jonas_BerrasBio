@@ -16,7 +16,7 @@ namespace Cinema.Models
                     throw new ArgumentNullException("Null CinemaContext");
                 }
 
-                if (context.Booking.Any() || context.Movies.Any())
+                if (context.Bookings.Any() || context.Movies.Any())
                 {
                     return;
                 }

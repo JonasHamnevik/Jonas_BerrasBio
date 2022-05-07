@@ -15,7 +15,7 @@ namespace Cinema.Data
         {
         }
 
-        public DbSet<Booking> Booking { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         public DbSet<Movie> Movies { get; set; }
     }
 }

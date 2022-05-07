@@ -22,11 +22,24 @@
             <th>
                 Seats
             </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
         </tr>
     </thead>
+    @{
+        var movieList = Model.AllMovies
+            .GroupBy(x => x.Title)
+            .Select(x => new { Title = x.Key, Genre = x.Key});
+    }
     <tbody>
-        @foreach(var item in Model.Movies)
+        @foreach (var item in Model.AllMovies)
         {
+            var freeSeats = item.Seats - Model.BookedSeats;
+            var cssClass = freeSeats == 0 ? "bg-danger disabled" : "active";
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -34,11 +47,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Genre)
                 </td>
-                <td>
+                <td class=" @cssClass">
                     @Html.DisplayFor(modelItem => item.Seats)
+                    <p>@freeSeats</p>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-danger float-right" asp-page="/Bookings/Tickets" asp-route-id="@item.Id">Ticket</a>
+                    @Html.DisplayFor(modelItem => item.Day)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Time)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-success float-right" asp-page="/Bookings/Tickets" asp-route-id="@item.Id">Ticket</a>
                 </td>
             </tr>
         }
