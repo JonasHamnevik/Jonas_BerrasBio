@@ -13,7 +13,6 @@ public class TicketsModel : PageModel
     public Booking Bookings { get; set; }
     public IList<Movie> Movies { get; set; }
     public int SelectedMovieId { get; set; }
-    public int freeSeats { get; set; }
 
     public TicketsModel(CinemaContext context)
     {
@@ -24,12 +23,10 @@ public class TicketsModel : PageModel
     {
         SelectedMovieId = id;
         Movies = _context.Movies.ToList();
+
         return Page();
     }
 
-
-
-    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)

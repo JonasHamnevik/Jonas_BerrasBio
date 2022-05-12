@@ -10,16 +10,14 @@ namespace Cinema.Pages
     {
         private readonly CinemaContext _context;
         public IndexModel (CinemaContext context) => this._context = context;
-        public List<Movie> AllMovies { get; set; } = new List<Movie>();
-        public List<Booking> AllBookings { get; set; } = new List<Booking>();
-        public int BookedSeats { get; set; }
+        public IList<Movie> Movies { get; set; } = new List<Movie>();
+        public IList<Booking> Bookings { get; set; } = new List<Booking>();
         public async Task OnGetAsync()
         {
-            AllMovies = await _context.Movies
+            Movies = await _context.Movies
                 .Include(x => x.Bookings)
                 .ToListAsync();
-            BookedSeats = _context.Bookings
-                .Sum(s => s.NumberOfSeats);
         }
+
     }
 }

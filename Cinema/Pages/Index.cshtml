@@ -23,42 +23,30 @@
                 Seats
             </th>
             <th>
-                Date
-            </th>
-            <th>
                 Time
             </th>
         </tr>
     </thead>
-    @{
-        var movieList = Model.AllMovies
-            .GroupBy(x => x.Title)
-            .Select(x => new { Title = x.Key, Genre = x.Key});
-    }
     <tbody>
-        @foreach (var item in Model.AllMovies)
+        @foreach (var movie in Model.Movies)
         {
-            var freeSeats = item.Seats - Model.BookedSeats;
-            var cssClass = freeSeats == 0 ? "bg-danger disabled" : "active";
+            var freeSeats = movie.Seats - movie.Bookings?.Sum(x => x.NumberOfSeats) ?? 0;
+            var freeSeatsClass = freeSeats == 0 ? "disabled" : "";
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @movie.Title
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-                <td class=" @cssClass">
-                    @Html.DisplayFor(modelItem => item.Seats)
-                    <p>@freeSeats</p>
+                    @Html.DisplayFor(modelItem => movie.Genre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Day)
+                    @freeSeats
                 </td>
                 <td>
-                    @Html.DisplayFor(modelitem => item.Time)
+                    @Html.DisplayFor(modelitem => movie.Time)
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-success float-right" asp-page="/Bookings/Tickets" asp-route-id="@item.Id">Ticket</a>
+                    <a class="btn btn-sm btn-success float-right @freeSeatsClass" asp-page="/Bookings/Tickets" asp-route-id="@movie.Id">Ticket</a>
                 </td>
             </tr>
         }
